@@ -33,7 +33,8 @@ export default function SendRequest() {
   const handleClick = async () => {
     if (
       url.startsWith("https://www.youtube.com/watch?v=") ||
-      url.startsWith("https://m.youtube.com/watch?v=")
+      url.startsWith("https://m.youtube.com/watch?v=") ||
+      url.startsWith("https://youtu.be/")
     ) {
       setAllowSubmit(false);
       // http://localhost:5000/yt
@@ -73,7 +74,10 @@ export default function SendRequest() {
               setDownloadLink(URL.createObjectURL(blob));
             });
           } else if (!res.ok) {
-            window.alert("video not found");
+            if (res.status.valueOf() === 500)
+              window.alert("server error, please try again later");
+            if (res.status.valueOf() === 400)
+              window.alert("video not found, make sure url is correct");
             console.log(res);
           }
         })
