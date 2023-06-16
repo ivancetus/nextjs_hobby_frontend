@@ -1,11 +1,13 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { generalContext } from "@/context/GeneralContextProvider";
-import { DownloadIcon, LoadingIcon, SendIcon } from "@/components/Icon";
+import { DownloadIcon, LoadingIcon2 } from "@/components/Icon";
 
 export default function Download() {
-  const { downloadLink, fileName, isInit } = useContext(generalContext);
+  const { downloadLink, fileName, isInit, submitted, setSubmitted } =
+    useContext(generalContext);
   //console.log(downloadLink);
+  if (downloadLink) setSubmitted(false);
   const handleClick = (e: React.FormEvent) => {
     const a = document.createElement("a");
     a.href = downloadLink;
@@ -13,21 +15,6 @@ export default function Download() {
     a.click();
   };
   return (
-    // <div
-    //   className={`py-1 w-32 h-12 text-lg ${
-    //     downloadLink === "" ? "hidden" : ""
-    //   }`}
-    // >
-    //   <button
-    //     type="button"
-    //     onClick={handleClick}
-    //     className="
-    //     p-1 py-0.5 bg-zinc-600 rounded-md w-full
-    //     "
-    //   >
-    //     Download
-    //   </button>
-    // </div>
     <div className="py-1 w-12 h-12 text-lg">
       <button
         disabled={!downloadLink}
@@ -39,7 +26,11 @@ export default function Download() {
         `}
       >
         <span className={`inline-block pt-2`}>
-          <DownloadIcon className="w-6 h-6" />
+          {submitted ? (
+            <LoadingIcon2 className="w-6 h-6" />
+          ) : (
+            <DownloadIcon className="w-6 h-6" />
+          )}
         </span>
       </button>
     </div>

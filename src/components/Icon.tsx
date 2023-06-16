@@ -78,7 +78,7 @@ export const SendIcon = ({
   </svg>
 );
 
-export const SendIcon2 = ({
+export const LoadingIcon2 = ({
   className = "",
   ...rest
 }: {
@@ -86,18 +86,36 @@ export const SendIcon2 = ({
 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={800}
-    height={800}
-    fill="currentColor"
-    viewBox="0 0 24 24"
+    width={24}
+    height={24}
     {...rest}
     className={`${className}`}
   >
-    <path
-      stroke="#464455"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M9 9H6m3 3H4m5 3H6m6.982-7.386L20 12l-7.018 4.386a.5.5 0 0 1-.755-.522L13 12l-.773-3.864a.5.5 0 0 1 .755-.522Z"
+    <style>
+      {
+        "@keyframes spinner_8HQG{0%,57.14%{animation-timing-function:cubic-bezier(.33,.66,.66,1);transform:translate(0)}28.57%{animation-timing-function:cubic-bezier(.33,0,.66,.33);transform:translateY(-6px)}to{transform:translate(0)}}.spinner_qM83{animation:spinner_8HQG 1.05s infinite}"
+      }
+    </style>
+    <circle fill="currentColor" cx={4} cy={12} r={3} className="spinner_qM83" />
+    <circle
+      fill="currentColor"
+      cx={12}
+      cy={12}
+      r={3}
+      className="spinner_qM83"
+      style={{
+        animationDelay: ".1s",
+      }}
+    />
+    <circle
+      fill="currentColor"
+      cx={20}
+      cy={12}
+      r={3}
+      className="spinner_qM83"
+      style={{
+        animationDelay: ".2s",
+      }}
     />
   </svg>
 );

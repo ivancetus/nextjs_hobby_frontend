@@ -1,7 +1,6 @@
 import UrlInput from "@/components/UrlInput";
 import FormatInput from "@/components/FormatInput";
 import SendRequest from "@/components/SendRequest";
-import ShowMessage from "@/components/ShowMessage";
 import Download from "@/components/Download";
 import PageTitle from "@/components/PageTitle";
 
@@ -15,7 +14,6 @@ export default function Page() {
         <SendRequest />
         <Download />
       </div>
-      {/*<ShowMessage />*/}
     </main>
   );
 }

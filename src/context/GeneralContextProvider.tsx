@@ -9,11 +9,9 @@ import React, {
 export const generalContext = createContext<{
   url: string;
   format: string;
-  message: string;
   downloadLink: string;
   setUrl: Dispatch<SetStateAction<string>>;
   setFormat: Dispatch<SetStateAction<string>>;
-  setMessage: Dispatch<SetStateAction<string>>;
   setDownloadLink: Dispatch<SetStateAction<string>>;
   allowSubmit: boolean;
   setAllowSubmit: Dispatch<SetStateAction<boolean>>;
@@ -21,6 +19,8 @@ export const generalContext = createContext<{
   setFileName: Dispatch<SetStateAction<string>>;
   isInit: boolean;
   setIsInit: Dispatch<SetStateAction<boolean>>;
+  submitted: boolean;
+  setSubmitted: Dispatch<SetStateAction<boolean>>;
 }>({} as any);
 
 export default function GeneralContextProvider({
@@ -30,11 +30,11 @@ export default function GeneralContextProvider({
 }) {
   const [url, setUrl] = useState("");
   const [format, setFormat] = useState("MP3");
-  const [message, setMessage] = useState("");
   const [downloadLink, setDownloadLink] = useState("");
   const [fileName, setFileName] = useState("");
   const [allowSubmit, setAllowSubmit] = useState(false);
   const [isInit, setIsInit] = useState(true);
+  const [submitted, setSubmitted] = useState(false);
   return (
     <generalContext.Provider
       value={{
@@ -42,8 +42,6 @@ export default function GeneralContextProvider({
         setUrl,
         format,
         setFormat,
-        message,
-        setMessage,
         downloadLink,
         setDownloadLink,
         allowSubmit,
@@ -52,6 +50,8 @@ export default function GeneralContextProvider({
         setFileName,
         isInit,
         setIsInit,
+        submitted,
+        setSubmitted,
       }}
     >
       {children}

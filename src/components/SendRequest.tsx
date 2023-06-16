@@ -2,7 +2,6 @@
 import { useContext, useEffect } from "react";
 import { generalContext } from "@/context/GeneralContextProvider";
 import { LoadingIcon, SendIcon } from "@/components/Icon";
-// import { flask_api } from "@/lib/loadApi";
 
 export default function SendRequest() {
   // const targe_url = flask_api();
@@ -11,13 +10,13 @@ export default function SendRequest() {
     url,
     format,
     setDownloadLink,
-    setMessage,
     allowSubmit,
     setAllowSubmit,
     fileName,
     setFileName,
     isInit,
     setIsInit,
+    setSubmitted,
   } = useContext(generalContext);
 
   useEffect(() => {
@@ -36,6 +35,7 @@ export default function SendRequest() {
       url.startsWith("https://m.youtube.com/watch?v=") ||
       url.startsWith("https://youtu.be/")
     ) {
+      setSubmitted(true);
       setAllowSubmit(false);
       // http://localhost:5000/yt
       await fetch("https://flask.ivancetus.com", {
@@ -83,7 +83,9 @@ export default function SendRequest() {
         })
         .catch((e) => console.log(e));
     } else {
-      window.alert(" not valid URL");
+      window.alert(
+        "invalid url, must start with one of the following, https://www.youtube.com/... or https://m.youtube.com/... or https://youtu.be/..."
+      );
     }
     setIsInit(true);
 
