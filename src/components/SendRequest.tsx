@@ -31,7 +31,10 @@ export default function SendRequest() {
   }, [url, setAllowSubmit, setIsInit]);
 
   const handleClick = async () => {
-    if (url.startsWith("https://www.youtube.com/watch?v=")) {
+    if (
+      url.startsWith("https://www.youtube.com/watch?v=") ||
+      url.startsWith("https://m.youtube.com/watch?v=")
+    ) {
       setAllowSubmit(false);
       // http://localhost:5000/yt
       await fetch("http://flask.ivancetus.com", {
