@@ -37,7 +37,7 @@ export default function SendRequest() {
     ) {
       setAllowSubmit(false);
       // http://localhost:5000/yt
-      await fetch("http://flask.ivancetus.com", {
+      await fetch("https://flask.ivancetus.com", {
         method: "POST",
         headers: {
           "content-type": "application/json",
