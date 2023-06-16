@@ -4,8 +4,6 @@ import { generalContext } from "@/context/GeneralContextProvider";
 import { LoadingIcon, SendIcon } from "@/components/Icon";
 
 export default function SendRequest() {
-  // const targe_url = flask_api();
-  // console.log(targe_url);
   const {
     url,
     format,
@@ -37,7 +35,7 @@ export default function SendRequest() {
     ) {
       setSubmitted(true);
       setAllowSubmit(false);
-      // http://localhost:5000/yt
+
       await fetch("https://flask.ivancetus.com", {
         method: "POST",
         headers: {

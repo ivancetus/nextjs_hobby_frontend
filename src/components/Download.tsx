@@ -4,7 +4,7 @@ import { generalContext } from "@/context/GeneralContextProvider";
 import { DownloadIcon, LoadingIcon2 } from "@/components/Icon";
 
 export default function Download() {
-  const { downloadLink, fileName, isInit, submitted, setSubmitted } =
+  const { downloadLink, fileName, submitted, setSubmitted } =
     useContext(generalContext);
   //console.log(downloadLink);
   if (downloadLink) setSubmitted(false);
