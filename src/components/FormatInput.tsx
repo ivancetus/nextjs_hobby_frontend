@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, ChangeEventHandler, useContext, useState } from "react";
+import { ChangeEvent, useContext } from "react";
 import { generalContext } from "@/context/GeneralContextProvider";
 
 export default function FormatInput() {
