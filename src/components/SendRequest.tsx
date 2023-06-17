@@ -52,20 +52,33 @@ export default function SendRequest() {
           // }
 
           if (res.headers.get("content-type") === "audio/mpeg") {
-            const file_name_utf8 = res.headers
-              .get("Content-Disposition")
-              ?.split("filename*=UTF-8''")[1];
+            const content_disposition = res.headers.get("Content-Disposition");
 
-            console.log("utf8 file name: ", file_name_utf8);
-            if (file_name_utf8) {
-              const file_name_decoded = decodeURIComponent(
-                file_name_utf8.split(".")[0]
-              );
-              console.log(
-                "decoded file name: ",
-                file_name_decoded.concat(".", format.toLowerCase())
-              );
-              setFileName(file_name_decoded.concat(".", format.toLowerCase()));
+            if (content_disposition) {
+              const file_name_utf8 =
+                content_disposition.split("filename*=UTF-8''")[1];
+
+              const file_name_normal =
+                content_disposition.split("filename=")[1];
+
+              console.log("file name utf8: ", file_name_utf8);
+              console.log("file name normal: ", file_name_normal);
+
+              // if utf8 filname is present, use that, else use default filname
+              if (file_name_utf8) {
+                const file_name_decoded = decodeURIComponent(
+                  file_name_utf8.split(".")[0]
+                );
+                console.log(
+                  "decoded file name: ",
+                  file_name_decoded.concat(".", format.toLowerCase())
+                );
+                setFileName(
+                  file_name_decoded.concat(".", format.toLowerCase())
+                );
+              } else {
+                setFileName(file_name_normal);
+              }
             }
 
             res.blob().then((blob) => {

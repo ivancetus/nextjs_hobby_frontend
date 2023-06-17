@@ -1,5 +1,5 @@
 "use client";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { generalContext } from "@/context/GeneralContextProvider";
 import { DownloadIcon, LoadingIcon2 } from "@/components/Icon";
 
@@ -7,7 +7,9 @@ export default function Download() {
   const { downloadLink, fileName, submitted, setSubmitted } =
     useContext(generalContext);
   //console.log(downloadLink);
-  if (downloadLink) setSubmitted(false);
+  useEffect(() => {
+    if (downloadLink) setSubmitted(false);
+  }, [downloadLink, setSubmitted]);
   const handleClick = (e: React.FormEvent) => {
     const a = document.createElement("a");
     a.href = downloadLink;
