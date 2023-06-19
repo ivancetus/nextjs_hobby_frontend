@@ -4,7 +4,7 @@ import { generalContext } from "@/context/GeneralContextProvider";
 import { DownloadIcon, LoadingIcon2 } from "@/components/Icon";
 
 export default function Download() {
-  const { downloadLink, fileName, submitted, setSubmitted } =
+  const { downloadLink, fileName, submitted, setSubmitted, setDownloadLink } =
     useContext(generalContext);
   //console.log(downloadLink);
   useEffect(() => {
@@ -15,6 +15,7 @@ export default function Download() {
     a.href = downloadLink;
     a.download = fileName;
     a.click();
+    setDownloadLink("");
   };
   return (
     <div className="py-1 w-12 h-12 text-lg">

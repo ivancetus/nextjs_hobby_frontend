@@ -87,8 +87,10 @@ export default function SendRequest() {
           } else if (!res.ok) {
             if (res.status.valueOf() === 500)
               window.alert("server error, please try again later");
-            if (res.status.valueOf() === 400)
+            if (res.status.valueOf() === 400) {
+              setSubmitted(false);
               window.alert("video not found, make sure url is correct");
+            }
             console.log(res);
           }
         })
