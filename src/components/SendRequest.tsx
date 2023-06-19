@@ -85,8 +85,10 @@ export default function SendRequest() {
               setDownloadLink(URL.createObjectURL(blob));
             });
           } else if (!res.ok) {
-            if (res.status.valueOf() === 500)
+            if (res.status.valueOf() === 500) {
+              setSubmitted(false);
               window.alert("server error, please try again later");
+            }
             if (res.status.valueOf() === 400) {
               setSubmitted(false);
               window.alert("video not found, make sure url is correct");
