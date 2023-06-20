@@ -23,16 +23,21 @@ export default function Download() {
         disabled={!downloadLink}
         type="button"
         onClick={handleClick}
-        className={`
-        py-0.5 group bg-zinc-600 rounded-md w-full disabled:bg-zinc-300 disabled:text-zinc-500 transition-colors border disabled:border-zinc-600 border-zinc-400 border-solid
-        hover:bg-zinc-50 hover:text-zinc-800
-        `}
+        // className='
+        // py-0.5 group bg-zinc-600 rounded-md w-full disabled:bg-zinc-300 disabled:text-zinc-500 transition-colors border disabled:border-zinc-600 border-zinc-400 border-solid
+        // hover:bg-zinc-50 hover:text-zinc-800
+        // '
+        className="
+        px-2.5 py-1 text-sm font-medium text-slate-300 rounded-lg disabled:bg-slate-300 disabled:text-slate-500
+        bg-slate-900 hover:bg-slate-700 border border-slate-700
+        focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors duration-150
+        "
       >
-        <span className={`inline-block pt-2`}>
+        <span className="inline-block pt-2">
           {submitted ? (
-            <LoadingIcon2 className="w-6 h-6" />
+            <LoadingIcon2 className="w-5 h-5" />
           ) : (
-            <DownloadIcon className="w-6 h-6" />
+            <DownloadIcon className="w-5 h-5" />
           )}
         </span>
       </button>

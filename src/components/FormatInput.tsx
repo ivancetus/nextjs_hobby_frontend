@@ -8,7 +8,7 @@ export default function FormatInput() {
     setFormat(e.target.value);
   };
   return (
-    <div className="flex pt-1 space-x-4 text-lg">
+    <div className="flex space-x-4 text-lg text-slate-200 font-bold mb-1">
       <label form="MP3">
         <input
           type="radio"

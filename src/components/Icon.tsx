@@ -10,7 +10,7 @@ export const LoadingIcon = ({
     width={24}
     height={24}
     {...rest}
-    className={`${className}`}
+    className={`${className} `}
   >
     <style>{"@keyframes spinner_AtaB{to{transform:rotate(360deg)}}"}</style>
     <path
@@ -96,12 +96,18 @@ export const LoadingIcon2 = ({
         "@keyframes spinner_8HQG{0%,57.14%{animation-timing-function:cubic-bezier(.33,.66,.66,1);transform:translate(0)}28.57%{animation-timing-function:cubic-bezier(.33,0,.66,.33);transform:translateY(-6px)}to{transform:translate(0)}}.spinner_qM83{animation:spinner_8HQG 1.05s infinite}"
       }
     </style>
-    <circle fill="currentColor" cx={4} cy={12} r={3} className="spinner_qM83" />
     <circle
       fill="currentColor"
-      cx={12}
-      cy={12}
-      r={3}
+      cx={3}
+      cy={10}
+      r={2.5}
+      className="spinner_qM83"
+    />
+    <circle
+      fill="currentColor"
+      cx={10}
+      cy={10}
+      r={2.5}
       className="spinner_qM83"
       style={{
         animationDelay: ".1s",
@@ -109,9 +115,9 @@ export const LoadingIcon2 = ({
     />
     <circle
       fill="currentColor"
-      cx={20}
-      cy={12}
-      r={3}
+      cx={17}
+      cy={10}
+      r={2.5}
       className="spinner_qM83"
       style={{
         animationDelay: ".2s",
