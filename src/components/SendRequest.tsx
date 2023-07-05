@@ -87,11 +87,15 @@ export default function SendRequest() {
           } else if (!res.ok) {
             if (res.status.valueOf() === 500) {
               setSubmitted(false);
-              window.alert("server error, please try again later");
+              window.alert(res.statusText);
+            }
+            if (res.status.valueOf() === 503) {
+              setSubmitted(false);
+              window.alert(res.statusText);
             }
             if (res.status.valueOf() === 400) {
               setSubmitted(false);
-              window.alert("video not found, make sure url is correct");
+              window.alert(res.statusText);
             }
             console.log(res);
           }
