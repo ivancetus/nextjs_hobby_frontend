@@ -50,7 +50,6 @@ export default function SendRequest() {
           // for (const [name, value] of res.headers.entries()) {
           //   console.log(`${name}: ${value}`);
           // }
-
           if (res.headers.get("content-type") === "audio/mpeg") {
             const content_disposition = res.headers.get("Content-Disposition");
 
@@ -80,24 +79,25 @@ export default function SendRequest() {
                 setFileName(file_name_normal);
               }
             }
-
             res.blob().then((blob) => {
               setDownloadLink(URL.createObjectURL(blob));
             });
           } else if (!res.ok) {
-            if (res.status.valueOf() === 500) {
-              setSubmitted(false);
-              window.alert(res.text());
-            }
-            if (res.status.valueOf() === 503) {
-              setSubmitted(false);
-              window.alert(res.text());
-            }
-            if (res.status.valueOf() === 400) {
-              setSubmitted(false);
-              window.alert(res.text());
-            }
-            console.log(res);
+            res.text().then((message) => {
+              if (res.status.valueOf() === 500) {
+                setSubmitted(false);
+                window.alert(message);
+              }
+              if (res.status.valueOf() === 503) {
+                setSubmitted(false);
+                window.alert(message);
+              }
+              if (res.status.valueOf() === 400) {
+                setSubmitted(false);
+                window.alert(message);
+              }
+              console.log(res);
+            });
           }
         })
         .catch((e) => console.log(e));
