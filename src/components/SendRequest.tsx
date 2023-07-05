@@ -87,15 +87,15 @@ export default function SendRequest() {
           } else if (!res.ok) {
             if (res.status.valueOf() === 500) {
               setSubmitted(false);
-              window.alert(res.statusText);
+              window.alert(res.body);
             }
             if (res.status.valueOf() === 503) {
               setSubmitted(false);
-              window.alert(res.statusText);
+              window.alert(res.body);
             }
             if (res.status.valueOf() === 400) {
               setSubmitted(false);
-              window.alert(res.statusText);
+              window.alert(res.body);
             }
             console.log(res);
           }
