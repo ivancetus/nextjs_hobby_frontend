@@ -100,10 +100,18 @@ export default function SendRequest() {
             });
           }
         })
-        .catch((e) => console.log(e));
+        .catch((error) => {
+          setSubmitted(false);
+          if (error instanceof TypeError) {
+            window.alert("Server unavailable, please try again later!");
+          } else {
+            console.log(error);
+            window.alert("Unknown cause of error, contact Ivan!");
+          }
+        });
     } else {
       window.alert(
-        "invalid url, must start with one of the following, https://www.youtube.com/... or https://m.youtube.com/... or https://youtu.be/..."
+        "Invalid url, must start with one of the following, https://www.youtube.com/... or https://m.youtube.com/... or https://youtu.be/..."
       );
     }
     setIsInit(true);
