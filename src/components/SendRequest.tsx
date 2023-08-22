@@ -36,22 +36,108 @@ export default function SendRequest() {
       setSubmitted(true);
       setAllowSubmit(false);
 
-      await fetch("https://flask.ivancetus.com", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({ url, format }),
-      })
-        .then((res) => {
-          // check response headers
-          // console.log("Response Headers:");
-          //@ts-ignore
-          // for (const [name, value] of res.headers.entries()) {
-          //   console.log(`${name}: ${value}`);
-          // }
-          if (res.headers.get("content-type") === "audio/mpeg") {
-            const content_disposition = res.headers.get("Content-Disposition");
+      // await fetch("https://flask.ivancetus.com", {
+      //   method: "POST",
+      //   headers: {
+      //     "content-type": "application/json",
+      //   },
+      //   body: JSON.stringify({ url, format }),
+      // })
+      //   .then((res) => {
+      //     // check response headers
+      //     // console.log("Response Headers:");
+      //     //@ts-ignore
+      //     // for (const [name, value] of res.headers.entries()) {
+      //     //   console.log(`${name}: ${value}`);
+      //     // }
+      //     if (res.headers.get("content-type") === "audio/mpeg") {
+      //       const content_disposition = res.headers.get("Content-Disposition");
+      //
+      //       if (content_disposition) {
+      //         const file_name_utf8 =
+      //           content_disposition.split("filename*=UTF-8''")[1];
+      //
+      //         const file_name_normal =
+      //           content_disposition.split("filename=")[1];
+      //
+      //         console.log("file name utf8: ", file_name_utf8);
+      //         console.log("file name normal: ", file_name_normal);
+      //
+      //         // if utf8 filname is present, use that, else use default filname
+      //         if (file_name_utf8) {
+      //           const file_name_decoded = decodeURIComponent(
+      //             file_name_utf8.split(".")[0]
+      //           );
+      //           console.log(
+      //             "decoded file name: ",
+      //             file_name_decoded.concat(".", format.toLowerCase())
+      //           );
+      //           setFileName(
+      //             file_name_decoded.concat(".", format.toLowerCase())
+      //           );
+      //         } else {
+      //           setFileName(file_name_normal);
+      //         }
+      //       }
+      //       res.blob().then((blob) => {
+      //         setDownloadLink(URL.createObjectURL(blob));
+      //       });
+      //     } else if (!res.ok) {
+      //       res.text().then((message) => {
+      //         if (res.status.valueOf() === 500) {
+      //           setSubmitted(false);
+      //           window.alert(message);
+      //         }
+      //         if (res.status.valueOf() === 503) {
+      //           setSubmitted(false);
+      //           window.alert(message);
+      //         }
+      //         if (res.status.valueOf() === 400) {
+      //           setSubmitted(false);
+      //           window.alert(message);
+      //         }
+      //         console.log(res);
+      //       });
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     setSubmitted(false);
+      //     if (error instanceof TypeError) {
+      //       window.alert("Server unavailable, please try again later!");
+      //     } else {
+      //       console.log(error);
+      //       window.alert("Unknown cause of error, contact Ivan!");
+      //     }
+      //   });
+      try {
+        const response = await fetch("https://flask.ivancetus.com", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ url, format }),
+        });
+        if (!response.ok) {
+          response.text().then((message) => {
+            if (response.status.valueOf() === 500) {
+              setSubmitted(false);
+              window.alert(message);
+            }
+            if (response.status.valueOf() === 503) {
+              setSubmitted(false);
+              window.alert(message);
+            }
+            if (response.status.valueOf() === 400) {
+              setSubmitted(false);
+              window.alert(message);
+            }
+            console.log(response);
+          });
+        } else {
+          if (response.headers.get("content-type") === "audio/mpeg") {
+            const content_disposition = response.headers.get(
+              "Content-Disposition"
+            );
 
             if (content_disposition) {
               const file_name_utf8 =
@@ -79,28 +165,76 @@ export default function SendRequest() {
                 setFileName(file_name_normal);
               }
             }
-            res.blob().then((blob) => {
+            response.blob().then((blob) => {
               setDownloadLink(URL.createObjectURL(blob));
             });
-          } else if (!res.ok) {
-            res.text().then((message) => {
-              if (res.status.valueOf() === 500) {
-                setSubmitted(false);
-                window.alert(message);
-              }
-              if (res.status.valueOf() === 503) {
-                setSubmitted(false);
-                window.alert(message);
-              }
-              if (res.status.valueOf() === 400) {
-                setSubmitted(false);
-                window.alert(message);
-              }
-              console.log(res);
-            });
           }
-        })
-        .catch((error) => {
+        }
+      } catch (error) {
+        console.log(error);
+        // fetch backup api
+        try {
+          const response = await fetch("https://flask-railway.ivancetus.com", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({ url, format }),
+          });
+          if (!response.ok) {
+            response.text().then((message) => {
+              if (response.status.valueOf() === 500) {
+                setSubmitted(false);
+                window.alert(message);
+              }
+              if (response.status.valueOf() === 503) {
+                setSubmitted(false);
+                window.alert(message);
+              }
+              if (response.status.valueOf() === 400) {
+                setSubmitted(false);
+                window.alert(message);
+              }
+              console.log(response);
+            });
+          } else {
+            if (response.headers.get("content-type") === "audio/mpeg") {
+              const content_disposition = response.headers.get(
+                "Content-Disposition"
+              );
+
+              if (content_disposition) {
+                const file_name_utf8 =
+                  content_disposition.split("filename*=UTF-8''")[1];
+
+                const file_name_normal =
+                  content_disposition.split("filename=")[1];
+
+                console.log("file name utf8: ", file_name_utf8);
+                console.log("file name normal: ", file_name_normal);
+
+                // if utf8 filname is present, use that, else use default filname
+                if (file_name_utf8) {
+                  const file_name_decoded = decodeURIComponent(
+                    file_name_utf8.split(".")[0]
+                  );
+                  console.log(
+                    "decoded file name: ",
+                    file_name_decoded.concat(".", format.toLowerCase())
+                  );
+                  setFileName(
+                    file_name_decoded.concat(".", format.toLowerCase())
+                  );
+                } else {
+                  setFileName(file_name_normal);
+                }
+              }
+              response.blob().then((blob) => {
+                setDownloadLink(URL.createObjectURL(blob));
+              });
+            }
+          }
+        } catch (error) {
           setSubmitted(false);
           if (error instanceof TypeError) {
             window.alert("Server unavailable, please try again later!");
@@ -108,7 +242,8 @@ export default function SendRequest() {
             console.log(error);
             window.alert("Unknown cause of error, contact Ivan!");
           }
-        });
+        }
+      }
     } else {
       window.alert(
         "Invalid url, must start with one of the following, https://www.youtube.com/... or https://m.youtube.com/... or https://youtu.be/..."
